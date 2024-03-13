@@ -1,15 +1,9 @@
 <!-- 首屏banner -->
 
 <template>
-    <div class="banner" id="banner">
+    <div class="banner" id="banner" ref="banner">
         <!-- 加载层 -->
-        <div class="bg back"><h1>林小二奋笔疾书...</h1></div>
-        <!-- 脚贴 -->
-        <div class="fork-me">
-            <a class="fork-me-link" href="https://github.com/manerfan/vuesume/wiki" target="_blank">
-                <span class="fork-me-text">Docs On GitHub</span>
-            </a>
-        </div>
+        <div class="bg back"><h1>The AI World Is Loading... 98 %</h1></div>
         <!-- 背景层 -->
         <div data-aos="fade-in" class="bg"></div>
         <!-- 内容层 -->
@@ -25,9 +19,10 @@
                 </h3>
             </div>
         </div>
-        <a data-aos="fade-in" class="scroll-next animated infinite bounce" href="#anchor-next" v-smooth-scroll>
+
+        <!-- <a data-aos="fade-in" class="scroll-next" href="#anchor-next" @click.prevent="handleScrollNext">
             <a-icon type="double-right"/>
-        </a>
+        </a> -->
     </div>
 </template>
 
@@ -48,6 +43,26 @@
         },
     })
     export default class Banner extends Vue {
+        mounted() {
+            setTimeout(() => {
+                this.handleScrollNext();
+            }, 1000); // 在组件挂载后等待 1 秒执行
+        }
+
+        handleScrollNext() {
+            const banner = this.$refs.banner as HTMLElement;
+            banner.classList.add('fade-out');
+
+            setTimeout(() => {
+                const target = document.querySelector('#anchor-next');
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'auto'
+                    });
+                }
+                banner.style.display = 'none'; // 在淡出效果完成后隐藏 banner 元素
+            }, 500); // 与 CSS 中的过渡时间保持一致
+        }
     }
 </script>
 
@@ -147,5 +162,12 @@
                 transform: rotate(45deg);
             }
         }
+
+        &.fade-out {
+            opacity: 0;
+            height: 0;
+            transition: opacity 0.5s ease-in-out, height 0s linear 0.5s;
+        }
+        
     }
 </style>

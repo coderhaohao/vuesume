@@ -18,7 +18,6 @@
     desc: [
       "北方汉子",
       "宝爸一颗",
-      "码农一枚",
       "花名林舍",
       "工作五六载",
     ],
@@ -38,7 +37,7 @@
       },
       header: {
         title: "information",
-        subtitle: "about me",
+        subtitle: "22222 ",
       },
       content: {
         name: "林舍",
